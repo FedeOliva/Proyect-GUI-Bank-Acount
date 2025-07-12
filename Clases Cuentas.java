@@ -21,6 +21,10 @@ class CuentaBancaria
     {
         return this.saldoPesos;
     }
+    public String saldo()
+    {
+        return "$"+ consultarSaldo();
+    }
 }
 class CuentaEspecial extends CuentaBancaria
 {
