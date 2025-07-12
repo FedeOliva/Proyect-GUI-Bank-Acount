@@ -49,4 +49,8 @@ class CuentaEspecial extends CuentaBancaria
     {
         return this.saldoUSD;
     }
+    public String saldo()
+    {
+        return "$"+ consultarSaldo();
+    }
 }

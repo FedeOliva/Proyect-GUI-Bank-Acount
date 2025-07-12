@@ -13,23 +13,21 @@ class GuiCuenta extends JFrame {
   private JPanel panelUSD;
 
   //Labels y textFiled
-  private JTextField montoAExtraer;
-  private JTextField montoADepositar;
+  private JTextField montoAExtraerPesos;
+  private JTextField montoADepositarPesos;
+  private JTextField montoAExtraerUSD;
+  private JTextField montoADepositarUSD;
   private JLabel tituloPesos;
   private JLabel tituloUSD;
   private JLabel etiquetaSaldoPesos;
   private JLabel etiquetaSaldoUSD;
-  private JLabel USDDisponibles;
 
   //Botones
   private JButton botonExtraerPesos;
   private JButton botonDepositarPesos;
-  private JButton botonConsultarPesos;
   private JButton botonExtraerUSD;
   private JButton botonDepositarUSD;
-  private JButton botonConsultarUSD;
 
-  
   public GuiCuenta(){
     super ("Cuenta");
     //Inicializa variables
@@ -61,82 +59,79 @@ class GuiCuenta extends JFrame {
     tituloPesos = new JLabel("Cuenta pesos");
     tituloUSD = new JLabel("Cuenta USD");
     etiquetaSaldoPesos = new JLabel(saldoPesos.saldo());
-    etiquetaSaldoUSD = new JLabel("Saldo USD");
+    etiquetaSaldoUSD = new JLabel(saldoUSD.saldo());
     //Crea los botones
-    botonConsultarPesos = new JButton("Consultar fondo en pesos");
-    botonConsultarPesos.setPreferredSize(new Dimension(200, 30));
     botonExtraerPesos = new JButton("Extraer pesos");
     botonExtraerPesos.setPreferredSize(new Dimension(100, 30));;
     botonDepositarPesos = new JButton("Depositar pesos");
     botonDepositarPesos.setPreferredSize(new Dimension(100, 30));
     botonExtraerUSD = new JButton("Extraer USD");
     botonDepositarUSD = new JButton("Depositar USD");
-    botonConsultarUSD = new JButton("Consultar fondo en USD");
-    montoAExtraer = new JTextField();
-    montoAExtraer.setPreferredSize(new Dimension(100, 30));
-    montoADepositar = new JTextField();
-    montoADepositar.setPreferredSize(new Dimension(100, 30));
+    montoAExtraerPesos = new JTextField();
+    montoAExtraerPesos.setPreferredSize(new Dimension(100, 30));
+    montoADepositarPesos = new JTextField();
+    montoADepositarPesos.setPreferredSize(new Dimension(100, 30));
+    montoAExtraerUSD = new JTextField();
+    montoAExtraerUSD.setPreferredSize(new Dimension(100, 30));
+    montoADepositarUSD = new JTextField();
+    montoADepositarUSD.setPreferredSize(new Dimension(100, 30));
     //Registra los botones en sus respectivos oyentes
     OyenteBotonExtraerPesos EP = new OyenteBotonExtraerPesos();
     botonExtraerPesos.addActionListener(EP);
     OyenteBotonDepositarPesos DP = new OyenteBotonDepositarPesos();
     botonDepositarPesos.addActionListener(DP);
-    OyenteBotonConsultarPesos CP = new OyenteBotonConsultarPesos();
-    botonConsultarPesos.addActionListener(CP);
     OyenteBotonExtraerUSD EU = new OyenteBotonExtraerUSD();
     botonExtraerUSD.addActionListener(EU);
     OyenteBotonDepositarUSD DU = new OyenteBotonDepositarUSD();
     botonDepositarUSD.addActionListener(DU);
-    OyenteBotonConsultarUSD CU = new OyenteBotonConsultarUSD();
-    botonConsultarUSD.addActionListener(CU);
 
-    //Inserta las componentes en los paneles	
+    //Inserta las componentes en los paneles
+
     //panelPesos
     panelPesos.add(tituloPesos);
     panelPesos.add(etiquetaSaldoPesos);
-    //panelPesos.add(botonConsultarPesos);
     panelPesos.add(botonExtraerPesos);
-    panelPesos.add(montoAExtraer);
     panelPesos.add(botonDepositarPesos);
-    panelPesos.add(montoADepositar);
+    panelPesos.add(montoAExtraerPesos);
+    panelPesos.add(montoADepositarPesos);
 
 
     //panelUSD
     panelUSD.add(tituloUSD);
-    panelUSD.add(botonConsultarUSD);
+    panelUSD.add(etiquetaSaldoUSD);
     panelUSD.add(botonExtraerUSD);
     panelUSD.add(botonDepositarUSD);
-    //panelUSD.add(USDDisponibles);
+    panelUSD.add(montoAExtraerUSD);
+    panelUSD.add(montoADepositarUSD);
+
  }
   //Implementa las oyentes
   private class OyenteBotonExtraerPesos implements ActionListener {
     public void actionPerformed(ActionEvent event) {
-
+      String monto = montoAExtraerPesos.getText();
+      saldoPesos.extraer(Integer.parseInt(monto));
+      etiquetaSaldoPesos.setText(saldoPesos.saldo());
     }  
   }
   private class OyenteBotonDepositarPesos implements ActionListener {
     public void actionPerformed(ActionEvent event) {
-
-    }  
-  }
-  private class OyenteBotonConsultarPesos implements ActionListener {
-    public void actionPerformed(ActionEvent event) {
-
+      String monto = montoADepositarPesos.getText();
+      saldoPesos.depositar(Integer.parseInt(monto));
+      etiquetaSaldoPesos.setText(saldoPesos.saldo());
     }  
   }
   private class OyenteBotonExtraerUSD implements ActionListener {
     public void actionPerformed(ActionEvent event) {
-
+      String monto = montoAExtraerUSD.getText();
+      saldoUSD.extraer(Integer.parseInt(monto));
+      etiquetaSaldoUSD.setText(saldoUSD.saldo());
     }  
   }
   private class OyenteBotonDepositarUSD implements ActionListener {
     public void actionPerformed(ActionEvent event) {
-
-    }  
-  }
-  private class OyenteBotonConsultarUSD implements ActionListener {
-    public void actionPerformed(ActionEvent event) {
-
+      String monto = montoADepositarUSD.getText();
+      saldoUSD.extraer(Integer.parseInt(monto));
+      etiquetaSaldoUSD.setText(saldoUSD.saldo());
     }  
   }
 }
