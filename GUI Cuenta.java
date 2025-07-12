@@ -1,12 +1,15 @@
 import java.awt.*; 
 import java.awt.event.*; 
 import javax.swing.*; 
+import javax.swing.event.*;
+
 class GuiCuenta extends JFrame {
   //*Atributos de instancia, objetos gráficos y de la aplicación*/
   private int saldoPesos, saldoUSD; //Estos atributos creo no se usan
   private Container contenedor;
 
   //Paneles
+  private JLayeredPane fondo;
   private JPanel panelPesos;
   private JPanel panelUSD;
 
@@ -15,8 +18,8 @@ class GuiCuenta extends JFrame {
   private JTextField montoADepositar;
   private JLabel tituloPesos;
   private JLabel tituloUSD;
-  private JLabel saldoPesosEtiqueta;
-  private JLabel saldoUSDEtiqueta;
+  private JLabel etiquetaSaldoPesos;
+  private JLabel etiquetaSaldoUSD;
 
   //Botones
   private JButton botonExtraerPesos;
@@ -26,33 +29,38 @@ class GuiCuenta extends JFrame {
   private JButton botonDepositarUSD;
   private JButton botonConsultarUSD;
 
+  
   public GuiCuenta(){
     super ("Cuenta");
     //Inicializa variables
     saldoPesos = 0;
     saldoUSD = 0;
     //Establece los valores de los atributos del frame
-    contenedor = getContentPane(); 
+    contenedor = getContentPane();
     contenedor.setLayout(new GridLayout(1,2));
-    setLayout(new GridLayout());
-    setSize(640, 480);  
-    panelPesos.setLayout(new GridLayout(4,1));   
-    //panelPesos.getContentPane().setBackground(Color.BLUE); 
-    panelPesos.setBackground(Color.BLUE);
-    panelUSD.setLayout(new GridLayout(4,1));   
+    setSize(640, 480);
+    panelPesos = new JPanel();
+    panelUSD = new JPanel();
+    panelPesos.setBackground(Color.BLUE);  
+    panelPesos.setLayout(new GridLayout(4,1));
+    panelUSD.setBackground(Color.GREEN);
+    panelUSD.setLayout(new GridLayout(4,1));
+    contenedor.add(panelPesos);
+    contenedor.add(panelUSD);
+    //panelPesos.getContentPane().setBackground(Color.BLUE);
     //panelUSD.getContentPane().setBackground(Color.GREEN);
-    panelUSD.setBackground(Color.GREEN); 
 	  setDefaultCloseOperation(EXIT_ON_CLOSE);
     //Invoca a un método interno que completa la GUI
 	  hacerGUI();
+    setVisible(true);
   }
   //Implementa las clases oyente
   private void hacerGUI(){
     //Crea las etiquetas para mostrar los dos fondos
     tituloPesos = new JLabel("Cuenta pesos");
     tituloUSD = new JLabel("Cuenta USD");
-    saldoPesosEtiqueta = new JLabel("Saldo Pesos");
-    saldoUSDEtiqueta = new JLabel("Saldo USD");
+    etiquetaSaldoPesos = new JLabel("Saldo Pesos");
+    etiquetaSaldoUSD = new JLabel("Saldo USD");
     //Crea los botones
     botonExtraerPesos = new JButton("Extraer pesos");
     botonDepositarPesos = new JButton("Depositar pesos");
@@ -74,7 +82,7 @@ class GuiCuenta extends JFrame {
     OyenteBotonConsultarUSD CU = new OyenteBotonConsultarUSD();
     botonConsultarUSD.addActionListener(CU);
 
-    //Inserta las componentes en los paneles del frame	
+    //Inserta las componentes en los paneles	
     //panelPesos.getContentPane().add(tituloPesos);
     panelPesos.add(tituloPesos);
     //panelPesos.getContentPane().add(botonExtraerPesos);
